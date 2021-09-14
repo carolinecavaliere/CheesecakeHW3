@@ -1,3 +1,4 @@
+//Caroline Cavaliere
 $(document).ready(function(){
     $("#orderbutton").click(function(){
       //Check notes to see if the customer is vegan and sends warning accordingly
