@@ -23,7 +23,41 @@ $(document).ready(function(){
               $("#orderdetails").append("Your Order Details: "+quantity+" Cherry Cheesecake(s)");				
           }
           $("#orderdetails").append(" Notes: "+notes);
-      }	
-    });
+      }
+    });	
 
-});
+    //Change text of dropdown list and bullet list when different month is chosen
+    function switchMonth(month){
+        $("#dropdown").text(month);
+        postOrder();
+    }
+
+    //Helper function to issue post requesting info about a specific month's orders
+    function postOrder(){
+        $.post("/orders", 
+            function(data){
+                const orders = JSON.parse(data);
+                $("#cherryOrders").text(orders[0].quantity + " " + orders[0].topping);
+                $("#chocolateOrders").text(orders[1].quantity + " " + orders[1].topping);
+                $("#plainOrders").text(orders[2].quantity + " " + orders[2].topping);
+            });
+    }
+
+    //Dropdown elements respond to clicks
+    $('#Jan').click(function(){ switchMonth("Jan"); });
+    $('#Feb').click(function(){ switchMonth("Feb"); });
+    $('#Mar').click(function(){ switchMonth("Mar"); });
+    $('#Apr').click(function(){ switchMonth("Apr"); });
+    $('#May').click(function(){ switchMonth("May"); });
+    $('#Jun').click(function(){ switchMonth("Jun"); });
+    $('#Jul').click(function(){ switchMonth("Jul"); });
+    $('#Aug').click(function(){ switchMonth("Aug"); });
+    $('#Sep').click(function(){ switchMonth("Sep"); });
+    $('#Oct').click(function(){ switchMonth("Oct"); });
+    $('#Nov').click(function(){ switchMonth("Nov"); });
+    $('#Dec').click(function(){ switchMonth("Dec"); });
+
+    });
+      
+
+    
