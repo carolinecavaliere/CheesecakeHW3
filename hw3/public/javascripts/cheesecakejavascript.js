@@ -29,14 +29,13 @@ $(document).ready(function(){
     //Change text of dropdown list and bullet list when different month is chosen
     function switchMonth(month){
         $("#dropdown").text(month);
-        postOrder();
+        postOrder(month);
     }
 
     //Helper function to issue post requesting info about a specific month's orders
-    function postOrder(){
-        $.post("/orders", 
-            function(data){
-                const orders = JSON.parse(data);
+    function postOrder(month){
+        $.post("/orders", {month: month}, function(data) {
+                var orders = JSON.parse(data);
                 $("#cherryOrders").text(orders[0].quantity + " " + orders[0].topping);
                 $("#chocolateOrders").text(orders[1].quantity + " " + orders[1].topping);
                 $("#plainOrders").text(orders[2].quantity + " " + orders[2].topping);
