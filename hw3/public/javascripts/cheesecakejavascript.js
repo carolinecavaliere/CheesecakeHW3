@@ -15,12 +15,15 @@ $(document).ready(function(){
           var quantity = $("#quantity").find(":selected").val();
           if($("#Chocolate").is(":checked")){
               $("#orderdetails").append("Your Order Details: "+quantity+" Chocolate Cheesecake(s)");
+              addOrder(quantity, "chocolate", notes);
           }
           else if($("#Plain").is(":checked")){
               $("#orderdetails").append("Your Order Details: "+quantity+" Plain Cheesecake(s)");
+              addOrder(quantity, "plain", notes);
           }
           else{
-              $("#orderdetails").append("Your Order Details: "+quantity+" Cherry Cheesecake(s)");				
+              $("#orderdetails").append("Your Order Details: "+quantity+" Cherry Cheesecake(s)");	
+              addOrder(quantity, "cherry", notes);			
           }
           $("#orderdetails").append(" Notes: "+notes);
       }
@@ -41,6 +44,13 @@ $(document).ready(function(){
                 $("#plainOrders").text(orders[2].quantity + " " + orders[2].topping);
             });
     }
+
+    //Sending client side data to server side
+    function addOrder(quantity, topping, notes){
+        $.post("/new_order", {quantity: quantity, topping: topping, notes:notes});
+    }
+
+
 
     //Dropdown elements respond to clicks
     $('#Jan').click(function(){ switchMonth("Jan"); });
